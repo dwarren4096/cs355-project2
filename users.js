@@ -59,35 +59,36 @@ module.exports = {
 									Status: '+UserQryResult[0].UserStatus+'</p>\n'+
 
 									'<h2>Game Library</h2>\n';
-									if (GameQryResult.length==0) {
-										responseHTML+='<p>This user has no games.</p>\n';
-									}
-									else {
-										responseHTML+='<ul>\n';
-										for(var i=0; i<GameQryResult.length; i++) {
-											responseHTML+='<li><a href="/games/view?GameID='+GameQryResult[i].GameID+'">'+GameQryResult[i].GameName+'</a></li>\n';
-										}
-										responseHTML+='</ul>\n';
-									}
-
-									responseHTML+='<h2>Friends</h2>\n';
-									if (FriendQryResult.length==0) {
-										responseHTML+='<p>This user has no friends :(</p>';
-									}
-									else {
-										responseHTML+='<ul>\n';
-										for(var i=0; i<FriendQryResult.length; i++) {
-											responseHTML+='<li><a href="/users/view?UserID='+FriendQryResult[i].UserID+'">'+FriendQryResult[i].UserName+'</a></li>\n';
-										}
-										responseHTML+='</ul>\n';
-									}
-
-									responseHTML+='<p><a href="/users/edit?UserID='+UserID+'">Edit user profile</a><br />\n\
-									<a href="/users/delete?UserID='+UserID+'">Delete profile</a><br />\n\
-									<a href="/users">Back</a></p>\n';
-									responseHTML+=cxn.HTMLFooter;
-									res.send(responseHTML);
+								if (GameQryResult.length==0) {
+									responseHTML+='<p>This user has no games.</p>\n';
 								}
+								else {
+									responseHTML+='<ul>\n';
+									for(var i=0; i<GameQryResult.length; i++) {
+										responseHTML+='<li><a href="/games/view?GameID='+GameQryResult[i].GameID+'">'+GameQryResult[i].GameName+'</a></li>\n';
+									}
+									responseHTML+='</ul>\n';
+								}
+
+								responseHTML+='<h2>Friends</h2>\n';
+								if (FriendQryResult.length==0) {
+									responseHTML+='<p>This user has no friends :(</p>';
+								}
+								else {
+									responseHTML+='<ul>\n';
+									for(var i=0; i<FriendQryResult.length; i++) {
+										responseHTML+='<li><a href="/users/view?UserID='+FriendQryResult[i].UserID+'">'+FriendQryResult[i].UserName+'</a></li>\n';
+									}
+									responseHTML+='</ul>\n';
+								}
+
+								responseHTML+='<p><a href="/users/edit?UserID='+UserID+'">Edit user profile</a><br />\n\
+								<a href="/users/delete?UserID='+UserID+'">Delete profile</a><br />\n\
+								<a href="/users">Back</a></p>\n';
+								responseHTML+=cxn.HTMLFooter;
+								res.send(responseHTML);
+							}
+						});
 					}
 				});
 			}
