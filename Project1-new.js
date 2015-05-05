@@ -6,7 +6,8 @@ var express	= require('express'),
     cxn		= require('./connection.js'),
     games	= require('./games.js'),
     dlc		= require('./dlc.js'),
-    users	= require('./users.js');
+    users	= require('./users.js'),
+    devs	= require('./devs.js');
 
 // Application initialization
 
@@ -123,7 +124,29 @@ app.get('/users/delete', function(req, res) {
  ********/
 
 app.get('/devs', function(req, res) {
-	res.send('Coming soon...');
+	devs.index(req, res);
+});
+
+app.get('/devs/view', function(req, res) {
+	devs.view(req, res);
+});
+
+app.get('/devs/add', function(req, res) {
+	devs.add(req, res);
+});
+app.post('/devs/insert', function(req, res) {
+	devs.insert(req, res);
+});
+
+app.get('/devs/edit', function(req, res) {
+	devs.edit(req, res);
+});
+app.post('/devs/update', function(req, res) {
+	devs.edit(req, res);
+});
+
+app.get('/devs/delete', function(req, res) {
+	devs.del(req, res);
 });
 
 
