@@ -9,7 +9,7 @@ var express	= require('express'),
 
 // Application initialization
 
-var app = module.exports = express.createServer();
+var app = express();
 app.use(express.bodyParser());
 
 // NB req.query is stuff that comes in from URLs. req.body is stuff that comes from forms
