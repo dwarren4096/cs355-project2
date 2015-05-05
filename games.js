@@ -126,7 +126,7 @@ module.exports = {
 	insert: function(req ,res) {
 		var qry1 = mysql.format('INSERT INTO Games SET ?', req.body);
 		console.log(qry1.sql);
-		cxn.connection.query(, function(err, result) { 
+		cxn.connection.query(qry1, function(err, result) { 
 			if (err){cxn.handleError(res, err);}
 			else {
 				var qry2 = mysql.format('SELECT GameID,GameName FROM Games WHERE GameName=?', req.body.GameName);
