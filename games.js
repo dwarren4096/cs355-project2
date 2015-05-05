@@ -39,8 +39,9 @@ module.exports = {
 	// Lists info for a specific game
 	view: function(req, res) {
 		var rGameID = parseInt(req.query.GameID);
-		var qry = 'SELECT Games.GameID, GameName, Price, Genre, ReleaseDate, Rating, DLCName, DLCPrice, DLCReleaseDate \
-			FROM Games LEFT JOIN DLC ON DLC.GameID=Games.GameID WHERE Games.GameID=' + rGameID;
+		var qry = mysql.format('SELECT Games.GameID, GameName, Price, Genre, ReleaseDate, Rating, DLCName, DLCPrice, DLCReleaseDate \
+			FROM Games LEFT JOIN DLC ON DLC.GameID=Games.GameID WHERE Games.GameID=?', rGameID);
+		console.log(qry.sql);
 		cxn.connection.query(qry, function(err, result) {
 			if (err) {cxn.handleError(res, err);}
 			else {
@@ -123,11 +124,13 @@ module.exports = {
 
 	// Inserts new game data into DB
 	insert: function(req ,res) {
-		// This SET ? syntax is a way of escaping the strings sent in the query and preventing SQL injections
-		var qry1 = cxn.connection.query('INSERT INTO Games SET ?', req.body, function(err, result) { 
+		var qry1 = mysql.format('INSERT INTO Games SET ?', req.body);
+		console.log(qry1.sql);
+		cxn.connection.query(, function(err, result) { 
 			if (err){cxn.handleError(res, err);}
 			else {
-				var qry2 = 'SELECT GameID,GameName FROM Games WHERE GameName='+req.body.GameName;
+				var qry2 = mysql.format('SELECT GameID,GameName FROM Games WHERE GameName=?', req.body.GameName);
+				console.log(qry2.sql);
 				cxn.connection.query(qry2, function(err, result) {
 					if (err) {cxn.handleError(res, err);}
 					else {
@@ -140,13 +143,14 @@ module.exports = {
 				});
 			}
 		});
-		console.log(qry1.sql);
 	},
 	
 	// form for editing game data
 	edit: function(req, res) {
 		var rGameID = parseInt(req.query.GameID);
-		cxn.connection.query('SELECT * FROM Games WHERE GameID='+rGameID, function(err, result) {
+		var qry = mysql.format('SELECT * FROM Games WHERE GameID=?', rGameID);
+		console.log(qry.sql);
+		cxn.connection.query(qry, function(err, result) {
 			if (err) {cxn.handleError(res, err);}
 			else {
 				var GameQryResult = result;
@@ -187,9 +191,9 @@ module.exports = {
 		var rGameID = parseInt(req.body.GameID);
 		var rBody = req.body;
 		delete rBody.GameID;
-		var qry = 'UPDATE Games SET ? WHERE GameID=' + rGameID;
-		//console.log(mysql.format(qry, rBody));
-		cxn.connection.query(mysql.format(qry, rBody), function(err, result) {
+		var qry = mysql.format('UPDATE Games SET ? WHERE GameID=?', [rBody, rGameID]);
+		console.log(qry.sql);
+		cxn.connection.query(qry, function(err, result) {
 			if (err) {cxn.handleError(res, err);}
 			else {
 				var responseHTML = cxn.HTMLHeader + '<p>Successfully updated GameID ' + rGameID + '.</p>\n\

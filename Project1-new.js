@@ -95,6 +95,27 @@ app.get('/users', function(req, res) {
 	users.index(req, res);
 });
 
+app.get('/users/view', function(req, res) {
+	users.view(req, res);
+});
+
+app.get('/users/add', function(req, res) {
+	users.add(req, res);
+});
+app.post('/users/insert', function(req, res) {
+	users.insert(req, res);
+});
+
+app.get('/users/edit', function(req, res) {
+	users.edit(req, res);
+});
+app.post('/users/update', function(req, res) {
+	users.edit(req, res);
+});
+
+app.get('/users/delete', function(req, res) {
+	users.del(req, res);
+});
 
 
 /********

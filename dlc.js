@@ -17,13 +17,14 @@ module.exports = {
 
 	insert: function(req, res) {
 		var rGameID = parseInt(req.body.GameID);
-		var qry = 'INSERT INTO DLC SET ?'
-		cxn.connection.query(mysql.format(qry, req.body), function(err, result) {
+		var qry = mysql.format('INSERT INTO DLC SET ?', req.body);
+		console.log(qry.sql);
+		cxn.connection.query(qry, function(err, result) {
 			if (err) {cxn.handleError(res, err);}
 			else {
 				var responseHTML = cxn.HTMLHeader + '<p>Added '+req.body.DLCName+' DLC to GameID '+rGameID+'</p>\n\
-					<p><a href="/dlc/add?GameID="'+rGameID+'">Add more DLC to this game</a><br />\n\
-					<a href="/games/view?GameID="'+rGameID+'">Back to game info</a></p>\n'+
+					<p><a href="/dlc/add?GameID='+rGameID+'">Add more DLC to this game</a><br />\n\
+					<a href="/games/view?GameID='+rGameID+'">Back to game info</a></p>\n'+
 					cxn.HTMLFooter;
 			}
 		});
@@ -33,6 +34,7 @@ module.exports = {
 		var rGameID = parseInt(req.query.GameID);
 		var rDLCName = req.query.DLCName;
 		var qry = mysql.format('SELECT * FROM DLC WHERE GameID=? AND DLCName=?', [rGameID, rDLCName]);
+		console.log(qry.sql);
 		cxn.connection.query(qry, function(err, result) {
 			if (err) {cxn.handleError(res, err);}
 			else {
@@ -59,6 +61,7 @@ module.exports = {
 		var rDLCName = rBody.DLCNameOld;
 		delete rBody.GameID, rBody.DLCNameOld;
 		var qry = mysql.format('UPDATE DLC SET ? WHERE GameID=? AND DLCName=?', [rBody, rGameID, rDLCName]);
+		console.log(qry.sql);
 		cxn.connection.query(qry, function(err, result) {
 			if (err) {cxn.handleError(res, err);}
 			else {
@@ -77,6 +80,7 @@ module.exports = {
 		var rGameID = parseInt(req.query.GameID);
 		var rDLCName = req.query.DLCName;
 		var qry = mysql.format('DELETE FROM DLC WHERE GameID=? AND DLCName=?', [rGameID, rDLCName]);
+		console.log(qry.sql);
 		cxn.connection.query(qry, function(err, result) {
 			if (err) {cxn.handleError(res, err);}
 			else {
