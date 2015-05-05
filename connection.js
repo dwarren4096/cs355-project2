@@ -1,5 +1,6 @@
 var mysql = require('mysql');
 
+//Provides the connection object and a few other global things
 exports.connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'derek',

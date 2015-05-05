@@ -16,7 +16,7 @@ module.exports = {
 				for (var i=0; i < result.length; i++) {
 					responseHTML += '<tr>\n<td>'+result[i].UserID+'</td>\n\
 						<td><a href="/users/view?UserID='+result[i].UserID+'">'+result[i].UserName+'</a></td>\n\
-						<td>$'+result[i].UserEmail+'</td>\n\
+						<td>'+result[i].UserEmail+'</td>\n\
 						</tr>\n';
 				}
 				responseHTML += '</table>\n\
