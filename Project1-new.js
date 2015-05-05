@@ -2,6 +2,7 @@
 
 var express	= require('express'),
     mysql	= require('mysql'),
+    bodyParser	= require('body-parser'),
     cxn		= require('./connection.js'),
     games	= require('./games.js'),
     dlc		= require('./dlc.js'),
@@ -10,7 +11,7 @@ var express	= require('express'),
 // Application initialization
 
 var app = express();
-app.use(express.bodyParser());
+app.use(bodyParser.json());
 
 // NB req.query is stuff that comes in from URLs. req.body is stuff that comes from forms
 // Main page with links to view tables
