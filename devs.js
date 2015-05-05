@@ -136,7 +136,7 @@ module.exports = {
 		cxn.connection.query(qry, function(err, result) {
 			if (err) {cxn.handleError(res, err);}
 			else {
-				var responseHTML = cxn.HTMLHeader + '<p>Successfully deleted profile with DevID 'DevID+'</p>\n\
+				var responseHTML = cxn.HTMLHeader + '<p>Successfully deleted profile with DevID '+DevID+'</p>\n\
 					<p><a href="/devs">Back</a></p>\n'+
 					cxn.HTMLFooter;
 				res.send(responseHTML);
