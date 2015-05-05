@@ -107,6 +107,6 @@ app.get('/devs', function(req, res) {
 
 
 // Begin listening
-
-app.listen(8002);
-console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+var port = 8002;
+app.listen(port);
+console.log("Express server listening on port %d", port);
