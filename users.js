@@ -48,7 +48,7 @@ module.exports = {
           else {
             var FriendQryResult = result;
 
-            var qry3 = mysql.format('SELECT GameName, Games.GameID JOIN Games ON Games.GameID=Game_Library.GameID WHERE UserID=?', 
+            var qry3 = mysql.format('SELECT GameName, Games.GameID FROM Game_Library JOIN Games ON Games.GameID=Game_Library.GameID WHERE UserID=?', 
               UserID);
             console.log(qry3.sql);
             cxn.connection.query(qry3, function(err, result) {

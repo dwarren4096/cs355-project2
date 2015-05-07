@@ -28,7 +28,7 @@ module.exports = {
   submit: function(req, res) {
     var UserID = parseInt(req.body.UserID);
     var GameID = parseInt(req.body.GameID);
-    var qry1 = 'INSERT INTO GameLibrary (UserID, GameID) VALUES('+UserID+', '+GameID+')';
+    var qry1 = 'INSERT INTO Game_Library (UserID, GameID) VALUES('+UserID+', '+GameID+')';
     console.log(qry1);
     cxn.connection.query(qry1, function(err, result) {
       if (err) {cxn.handleError(res, err);}
@@ -45,7 +45,7 @@ module.exports = {
   del: function(req, res) {
     var UserID = parseInt(req.query.UserID);
     var GameID = parseInt(req.query.GameID);
-    var qry1 = 'DELETE FROM Friends_List WHERE (UserID='+UserID+' AND GameID='+GameID+')';
+    var qry1 = 'DELETE FROM Game_Library WHERE (UserID='+UserID+' AND GameID='+GameID+')';
     console.log(qry1);
     cxn.connection.query(qry1, function(err, result) {
       if (err) {cxn.handleError(res, err);}
