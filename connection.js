@@ -9,8 +9,8 @@ exports.connection = mysql.createConnection({
 });
 
 exports.handleError = function (res, error){
-		console.error(error);
-		res.send(error.toString());
+    console.error(error);
+    res.send(error.toString());
 }
 
 exports.HTMLHeader = '<html>\n<head><title>Vapor Game Distribution</title></head>\n<body>\n';
