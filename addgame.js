@@ -15,11 +15,12 @@ module.exports = {
           <form action="/addgame/submit" method="post">\n\
           <input type="hidden" name="UserID" value="'+UserID+'" />\n\
           <select name="GameID">\n';
-        for (int i=0; i<result.length; i++) {
+        for (var i=0; i<result.length; i++) {
           responseHTML+='<option value="'+result[i].GameID+'">'+result[i].GameName+'</option>\n';
         }
         responseHTML+='</select>\n\
-          <input type="submit" value="Submit">';
+          <input type="submit" value="Submit" />\n\
+          </form>\n' + cxn.HTMLFooter;
         res.send(responseHTML);
       }
     });
@@ -50,8 +51,8 @@ module.exports = {
     cxn.connection.query(qry1, function(err, result) {
       if (err) {cxn.handleError(res, err);}
       else {
-        var responseHTML = cxn.HTMLHeader + '<p><a href="/users/view?UserID='+UserID+'">UserID '+UserID+'</a> \
-          and <a href="/users/view?UserID='+FriendID+'">UserID '+FriendID+' are no longer friends.</p>\n\
+        var responseHTML = cxn.HTMLHeader + '<p><a href="/users/view?GameID='+GameID+'">GameID '+GameID+'</a> \
+          has been removed from <a href="/users/view?UserID='+UserID+'">UserID '+UserID+'\'s game library.</p>\n\
           <p><a href="/users/view?UserID='+UserID+'">Back</a></p>\n'+
           cxn.HTMLFooter;
         res.send(responseHTML);

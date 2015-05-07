@@ -33,16 +33,16 @@ module.exports = {
   view: function(req, res) {
     var UserID = parseInt(req.query.UserID);
     var qry1 = mysql.format('SELECT UserID, UserName, UserEmail, UserStatus FROM Users WHERE UserID=?', UserID);
-    console.log(qry1.sql);
+    console.log(qry1);
     cxn.connection.query(qry1, function(err, result) {
       if (err) {cxn.handleError(res, err);}
       else {
         var UserQryResult = result;
 
-        var qry2 = mysql.format('SELECT Users.UserID, Users.UserName FROM Friends_List \
-          RIGHT JOIN Users ON Friends_List.FriendID = Users.UserID WHERE Friends_List.UserID=?',
+        var qry2 = mysql.format('SELECT Users.UserID, Users.UserName FROM Friends_List '+
+          'RIGHT JOIN Users ON Friends_List.FriendID = Users.UserID WHERE Friends_List.UserID=?',
           UserID);
-        console.log(qry2.sql);
+        console.log(qry2);
         cxn.connection.query(qry2, function(err, result) {
           if (err) {cxn.handleError(res, err);}
           else {
@@ -50,7 +50,7 @@ module.exports = {
 
             var qry3 = mysql.format('SELECT GameName, Games.GameID FROM Game_Library JOIN Games ON Games.GameID=Game_Library.GameID WHERE UserID=?', 
               UserID);
-            console.log(qry3.sql);
+            console.log(qry3);
             cxn.connection.query(qry3, function(err, result) {
               if (err) {cxn.handleError(res, err);}
               else {
@@ -115,17 +115,17 @@ module.exports = {
 
   insert: function(req, res) {
     var qry1 = mysql.format('INSERT INTO Users SET ?', req.body);
-    console.log(qry1.sql);
-    cxn.connection.query(qry, function(err, result) {
+    console.log(qry1);
+    cxn.connection.query(qry1, function(err, result) {
       if (err) {cxn.handleError(res, err);}
       else {
         var qry2 = mysql.format('SELECT UserName,UserID FROM Users WHERE UserName=? AND UserEmail=?', [req.body.UserName, req.body.UserEmail]);
-        console.log(qry2.sql);
+        console.log(qry2);
         cxn.connection.query(qry2, function(err, result) {
           if (err) {cxn.handleError(res, err);}
           else {
             var responseHTML = cxn.HTMLHeader + '<p>'+result[0].UserName+' successfully signed up with UserID '+result[0].UserID+'</p>\n\
-              <p><a href="/users/view?UserID'+result[0].UserID+'">View profile</a><br />\n'+
+              <p><a href="/users/view?UserID='+result[0].UserID+'">View profile</a><br />\n'+
               cxn.HTMLFooter;
             res.send(responseHTML);
           }
@@ -137,15 +137,15 @@ module.exports = {
   edit: function(req, res) {
     var UserID = parseInt(req.query.UserID);
     var qry = mysql.format('SELECT * FROM Users WHERE UserID=?', UserID);
-    console.log(qry.sql);
+    console.log(qry);
     cxn.connection.query(qry, function(err, result) {
       if (err) {cxn.handleError(res, err);}
       else {
         var responseHTML = cxn.HTMLHeader + '<h1>Editing User Profile for '+result[0].UserName+'</h1>\n\
           <form action="/users/update" method="post">\n\
           <input type="hidden" name="UserID" value="'+UserID+'" />\n\
-          Username: <input name="UserName" type="text" value="'+result[0].UserName+' /><br />\n\
-          Password: <input name="UserPass" type="password" value="'+result[0].UserPass+' /><br />\n\
+          Username: <input name="UserName" type="text" value="'+result[0].UserName+'" /><br />\n\
+          Password: <input name="UserPass" type="password" value="'+result[0].UserPass+'" /><br />\n\
           Email Address: <input name="UserEmail" type="text" value="'+result[0].UserEmail+'" /><br />\n\
           <input type="submit" value="Submit" />\n\
           </form>\n'
@@ -158,23 +158,24 @@ module.exports = {
   update: function(req, res) {
     var rBody = req.body;
     var UserID = parseInt(rBody.UserID);
-    delete rBody.GameID;
+    delete rBody.UserID;
     var qry = mysql.format('UPDATE Users SET ? WHERE UserID=?', [rBody, UserID]);
-    console.log(qry.sql);
+    console.log(qry);
     cxn.connection.query(qry, function(err, result) {
       if (err) {cxn.handleError(res, err);}
       else {
         var responseHTML = cxn.HTMLHeader + '<p>User profile for '+rBody.UserName+' successfully updated.</p>\
-          <p><a href="/users/view?'+UserID+'">View profile</a></p>\n'+
+          <p><a href="/users/view?UserID='+UserID+'">View profile</a></p>\n'+
           cxn.HTMLFooter;
+        res.send(responseHTML);
       }
     });
   },
 
   del: function(req, res) {
-    var UserID = parseInt(req.query.GameID);
+    var UserID = parseInt(req.query.UserID);
     var qry = mysql.format('DELETE FROM Users WHERE UserID=?', UserID);
-    console.log(qry.sql);
+    console.log(qry);
     cxn.connection.query(qry, function(err, result) {
       if (err) {cxn.handleError(res, err);}
       else {

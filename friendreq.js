@@ -5,7 +5,7 @@ module.exports = {
   add: function(req, res) {
     var UserID = parseInt(req.query.UserID);
     var qry = mysql.format('SELECT UserID, UserName FROM Users WHERE UserID!=?', UserID);
-    console.log(qry.sql);
+    console.log(qry);
     cxn.connection.query(qry, function(err, result) {
       if (err) {cxn.handleError(res, err);}
       else {
@@ -13,7 +13,7 @@ module.exports = {
           <form action="/friendreq/submit" method="post">\n\
           <input type="hidden" name="UserID" value="'+UserID+'" />\n\
           <select name="FriendID">\n';
-        for (int i=0; i<result.length; i++) {
+        for (var i=0; i<result.length; i++) {
           responseHTML+='<option value="'+result[i].UserID+'">'+result[i].UserName+'</option>\n';
         }
         responseHTML+='</select>\n\

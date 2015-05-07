@@ -12,7 +12,7 @@ var express = require('express'),
 
 // Application initialization
 var app = express();
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 // NB req.query is stuff that comes in from URLs. req.body is stuff that comes from forms
 // Main page with links to view tables
@@ -111,7 +111,7 @@ app.get('/users/edit', function(req, res) {
   users.edit(req, res);
 });
 app.post('/users/update', function(req, res) {
-  users.edit(req, res);
+  users.update(req, res);
 });
 
 app.get('/users/delete', function(req, res) {
@@ -165,7 +165,7 @@ app.get('/devs/edit', function(req, res) {
   devs.edit(req, res);
 });
 app.post('/devs/update', function(req, res) {
-  devs.edit(req, res);
+  devs.update(req, res);
 });
 
 app.get('/devs/delete', function(req, res) {

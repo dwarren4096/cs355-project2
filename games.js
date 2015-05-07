@@ -39,9 +39,9 @@ module.exports = {
   // Lists info for a specific game
   view: function(req, res) {
     var rGameID = parseInt(req.query.GameID);
-    var qry = mysql.format('SELECT Games.GameID, GameName, Price, Genre, ReleaseDate, Rating, DLCName, DLCPrice, DLCReleaseDate \
-      FROM Games LEFT JOIN DLC ON DLC.GameID=Games.GameID WHERE Games.GameID=?', rGameID);
-    console.log(qry.sql);
+    var qry = mysql.format('SELECT Games.GameID, GameName, Price, Genre, ReleaseDate, Rating, DLCName, DLCPrice, DLCReleaseDate, DevelopedBy '+
+      'FROM Games LEFT JOIN DLC ON DLC.GameID=Games.GameID WHERE Games.GameID=?', rGameID);
+    console.log(qry);
     cxn.connection.query(qry, function(err, result) {
       if (err) {cxn.handleError(res, err);}
       else {
@@ -103,7 +103,7 @@ module.exports = {
           GameName: <input type="text" name="GameName" /><br />\n\
           Price: $<input type="text" name="Price" /><br />\n\
           Genre: <input type="text" name="Genre" /><br />\n\
-          ReleaseDate: <input type="text" name="ReleaseDate" /><br />\n\
+          ReleaseDate (yyyy-mm-dd): <input type="text" name="ReleaseDate" /><br />\n\
           Rating: <select name="Rating">\n\
             <option value="NR">No rating</option>\n\
             <option value="E">E</option>\n\
@@ -125,12 +125,12 @@ module.exports = {
   // Inserts new game data into DB
   insert: function(req ,res) {
     var qry1 = mysql.format('INSERT INTO Games SET ?', req.body);
-    console.log(qry1.sql);
+    console.log(qry1);
     cxn.connection.query(qry1, function(err, result) { 
       if (err){cxn.handleError(res, err);}
       else {
         var qry2 = mysql.format('SELECT GameID,GameName FROM Games WHERE GameName=?', req.body.GameName);
-        console.log(qry2.sql);
+        console.log(qry2);
         cxn.connection.query(qry2, function(err, result) {
           if (err) {cxn.handleError(res, err);}
           else {
@@ -149,7 +149,7 @@ module.exports = {
   edit: function(req, res) {
     var rGameID = parseInt(req.query.GameID);
     var qry = mysql.format('SELECT * FROM Games WHERE GameID=?', rGameID);
-    console.log(qry.sql);
+    console.log(qry);
     cxn.connection.query(qry, function(err, result) {
       if (err) {cxn.handleError(res, err);}
       else {
@@ -164,7 +164,7 @@ module.exports = {
               GameName: <input type="text" name="GameName" value="'+GameQryResult[0].GameName+'" /><br />\n\
               Price: $<input type="text" name="Price" value="'+GameQryResult[0].Price+'" /><br />\n\
               Genre: <input type="text" name="Genre" value="'+GameQryResult[0].Genre+'" /><br />\n\
-              ReleaseDate: <input type="text" name="ReleaseDate" value="'+GameQryResult[0].ReleaseDate+'" /><br />\n\
+              ReleaseDate (yyyy-mm-dd): <input type="text" name="ReleaseDate" value="'+GameQryResult[0].ReleaseDate+'" /><br />\n\
               Rating: <select name="Rating">\n\
                 <option value="NR">No rating</option>\n\
                 <option value="E">E</option>\n\
@@ -192,7 +192,7 @@ module.exports = {
     var rBody = req.body;
     delete rBody.GameID;
     var qry = mysql.format('UPDATE Games SET ? WHERE GameID=?', [rBody, rGameID]);
-    console.log(qry.sql);
+    console.log(qry);
     cxn.connection.query(qry, function(err, result) {
       if (err) {cxn.handleError(res, err);}
       else {
@@ -207,7 +207,7 @@ module.exports = {
   del: function(req, res) {
     var rGameID = parseInt(req.query.GameID);
     var qry = mysql.format('DELETE FROM Games WHERE GameID=?', rGameID);
-    console.log(qry.sql);
+    console.log(qry);
     cxn.connection.query(qry, function(err, result) {
       if (err) {cxn.handleError(res, err);}
       else {
