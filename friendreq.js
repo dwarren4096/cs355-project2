@@ -16,7 +16,7 @@ module.exports = {
           qry2 += ' AND UserID!='+mysql.escape(q1Result[i].FriendID);
         }
         console.log(qry2);
-        cxn.connection.query(qry, function(err, result) {
+        cxn.connection.query(qry2, function(err, result) {
           if (err) {cxn.handleError(res, err);}
           else {
             var responseHTML = cxn.HTMLHeader + '<h1>Select a user</h1>\n\
