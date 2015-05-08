@@ -58,8 +58,7 @@ module.exports = {
 
                 var responseHTML = cxn.HTMLHeader + '<h1>'+UserQryResult[0].UserName+'</h1>\n\
                   <p>Email address: '+UserQryResult[0].UserEmail+'<br />\n\
-                  Status: '+UserQryResult[0].UserStatus+
-                  ' <a href="/users/status_edit?UserID='+UserID+'">(update)</a></p>\n'+
+                  Status: <a href="/users/status/edit?UserID='+UserID+'">'+UserQryResult[0].UserStatus+'</a></p>\n'+
 
                   '<h2>Game Library</h2>\n';
                 if (GameQryResult.length==0) {
