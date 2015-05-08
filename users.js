@@ -134,6 +134,7 @@ module.exports = {
     });
   },
 
+  //edit user profile
   edit: function(req, res) {
     var UserID = parseInt(req.query.UserID);
     var qry = mysql.format('SELECT * FROM Users WHERE UserID=?', UserID);
@@ -167,6 +168,38 @@ module.exports = {
         var responseHTML = cxn.HTMLHeader + '<p>User profile for '+rBody.UserName+' successfully updated.</p>\
           <p><a href="/users/view?UserID='+UserID+'">View profile</a></p>\n'+
           cxn.HTMLFooter;
+        res.send(responseHTML);
+      }
+    });
+  },
+  
+  //update status
+  status-edit: function(req, res) {
+    var UserID = parseInt(req.query.UserID);
+    var responseHTML = cxn.HTMLHeader + '<h1>Updating status for UserID '+UserID+'</h1>\n\
+      <form action="/users/status/update" method="post">\n\
+      <input type="hidden" name="UserID" value="'+UserID+'" />\n\
+      <select name="UserStatus">\n\
+        <option value="Offline">Offline</option>\n\
+        <option value="Online">Online</option>\n\
+        <option value="Away">Away</option>\n\
+      </select>\n\
+      <input type="submit" value="Submit" />\n\
+      </form>\n'+cxn.HTMLFooter;
+    res.send(responseHTML);
+  },
+  
+  status-update: function(req, res) {
+    var rBody = req.body;
+    var UserID = req.body.UserID;
+    delete rBody.UserID;
+    var qry = mysql.format('UPDATE Users SET ? WHERE UserID=?', UserID);
+    console.log(qry);
+    cxn.connection.query(qry, function(err, result) {
+      if (err) {cxn.handleError(res, err);}
+      else {
+        var responseHTML = '<p>Status for UserID '+UserID+' successfully updated to '+rBody.UserStatus+'.</p>\n\
+          <p><a href="/users/view?UserID='+UserID+'">Back</a></p>\n'+cxn.HTMLFooter;
         res.send(responseHTML);
       }
     });

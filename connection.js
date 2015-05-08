@@ -3,9 +3,9 @@ var mysql = require('mysql');
 //Provides the connection object and a few other global things
 exports.connection = mysql.createConnection({
   host     : 'localhost',
-  user     : 'derek',
-  password : 'swordfish707',
-  database : 'Project1'
+  user     : 'username',
+  password : 'password',
+  database : 'database'
 });
 
 exports.handleError = function (res, error){

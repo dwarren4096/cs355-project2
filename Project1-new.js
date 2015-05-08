@@ -114,6 +114,14 @@ app.post('/users/update', function(req, res) {
   users.update(req, res);
 });
 
+//update status
+app.get('/users/status/edit', function(req, res) {
+  users.status-edit(req, res);
+});
+app.post('/users/status/update', function(req, res) {
+  users.status-update(req, res);
+});
+
 app.get('/users/delete', function(req, res) {
   users.del(req, res);
 });
