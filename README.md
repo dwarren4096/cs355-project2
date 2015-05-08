@@ -48,6 +48,7 @@ A lookup table keeping track of what users own what games.
 
 # Web app
 
+The web app is started by running `nodejs Project1-new.js`. I've split the project across multiple files to keep the main one from getting cluttered.
 * `/` A basic homepage that presents the user with links to view the Games, Users, and Developers tables (the strong entities)
 
 **Games**
