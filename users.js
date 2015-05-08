@@ -193,7 +193,7 @@ module.exports = {
     var rBody = req.body;
     var UserID = req.body.UserID;
     delete rBody.UserID;
-    var qry = mysql.format('UPDATE Users SET ? WHERE UserID=?', UserID);
+    var qry = mysql.format('UPDATE Users SET ? WHERE UserID=?', [rBody, UserID]);
     console.log(qry);
     cxn.connection.query(qry, function(err, result) {
       if (err) {cxn.handleError(res, err);}
