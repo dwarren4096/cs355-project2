@@ -49,6 +49,7 @@ A lookup table keeping track of what users own what games.
 # Web app
 
 * `/` A basic homepage that presents the user with links to view the Games, Users, and Developers tables (the strong entities)
+
 **Games**
 * `/games` Games catalog. Presents a table with basic information on each game in the Games table. It also allows the user to add a new game to the catalog.
 * `/games/view` Clicking on a game title in the catalog will bring the user to a page displaying more detailed information on the game and any DLC it may have. It also presents options to edit or delete this game, or add DLC to it. Clicking on a DLC item will allow the user to edit or delete that DLC item.
@@ -57,12 +58,14 @@ A lookup table keeping track of what users own what games.
 * `/games/edit` A form for editing information on a game, which is initially populated with the game's current values.
 * `/games/update` The updated data from the form in `/games/edit` is sent here to be inserted into the database.
 * `/games/delete` Deletes the specified game from the database
+
 **DLC**
 * `/dlc/add` Form for adding new DLC to a specified game.
 * `/dlc/insert` Form data in `/dlc/add` is sent here to be submitted to the database.
 * `/dlc/edit` Form for editing information for a certain DLC.
 * `/dlc/update` Form data in `/dlc/edit` is sent here to be submitted to the database.
 * `/dlc/delete` Deletes the specified DLC from the database.
+
 **Users**
 * `/users` Lists all users, their email address, and their current status. Clicking on a username will bring up more detailed information. Also presents a link for a new user to sign up.
 * `/users/view` Presents more detailed information on a user. Thier online status is displayed here and can be changed; the list of games they own is displayed, and games can be added or removed from their library here; thier friends list is displayed and friends can be added and removed; and finally, the user's profile can be edited or deleted.
@@ -73,14 +76,17 @@ A lookup table keeping track of what users own what games.
 * `/users/status/edit` Form for updating a user's status. Presents three options: Offline, Online, and Away. If I was more Javascript savvy I would include an option for a custom status as well.
 * `/users/status/update` Updates the user's status with the option chosen in `/users/status/edit`
 * `/users/delete` Deletes the specified user's profile.
+
 **Friend requests**
 * `/friendreq/add` Presents a list of users that does not include the user making the friend request. People that the user is already friends with are also excluded.
 * `/friendreq/submit` The user chosen in `/friendreq/add` is now friends with the user making the request, whether they want to or not.
 * `/friendreq/del` Fortunately removing a friend is just as trivial, so if a user decides he no longer wants to be friends with someone, he can be removed from the friends list here.
+
 **Game library**
 * `/addgame/add` Presents the user with a list of games to be added to their library. Does not include games that the user already owns.
 * `/addgame/submit` Adds the selected game to the user's library
 * `/addgame/del` Deletes the selected game from the user's library
+
 **Developers**
 * `/devs` Displays all developers. Click a developer's name to view more info on them.
 * `/devs/view` More info on a developer. Lists all games that this dev has worked on.
