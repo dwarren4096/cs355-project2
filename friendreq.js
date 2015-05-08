@@ -4,21 +4,33 @@ var mysql = require('mysql');
 module.exports = {
   add: function(req, res) {
     var UserID = parseInt(req.query.UserID);
-    var qry = mysql.format('SELECT UserID, UserName FROM Users WHERE UserID!=?', UserID);
-    console.log(qry);
-    cxn.connection.query(qry, function(err, result) {
+    var qry1 = mysql.format('SELECT FriendID FROM Friends_List WHERE UserID=?', UserID);
+    console.log(qry1);
+    cxn.connection.query(qry1, function(err, result) {
       if (err) {cxn.handleError(res, err);}
       else {
-        var responseHTML = cxn.HTMLHeader + '<h1>Select a user</h1>\n\
-          <form action="/friendreq/submit" method="post">\n\
-          <input type="hidden" name="UserID" value="'+UserID+'" />\n\
-          <select name="FriendID">\n';
-        for (var i=0; i<result.length; i++) {
-          responseHTML+='<option value="'+result[i].UserID+'">'+result[i].UserName+'</option>\n';
+        var q1Result = result;
+        console.log(q1Result.length);
+        var qry2 = 'SELECT UserID, UserName FROM Users WHERE UserID!='+UserID;
+        for (var i=0; i<q1Result.length; i++) {
+          qry2 += ' AND UserID!='+mysql.escape(q1Result[i].FriendID);
         }
-        responseHTML+='</select>\n\
-          <input type="submit" value="Submit">';
-        res.send(responseHTML);
+        console.log(qry2);
+        cxn.connection.query(qry, function(err, result) {
+          if (err) {cxn.handleError(res, err);}
+          else {
+            var responseHTML = cxn.HTMLHeader + '<h1>Select a user</h1>\n\
+              <form action="/friendreq/submit" method="post">\n\
+              <input type="hidden" name="UserID" value="'+UserID+'" />\n\
+              <select name="FriendID">\n';
+            for (var i=0; i<result.length; i++) {
+              responseHTML+='<option value="'+result[i].UserID+'">'+result[i].UserName+'</option>\n';
+            }
+            responseHTML+='</select>\n\
+              <input type="submit" value="Submit">';
+            res.send(responseHTML);
+          }
+        });
       }
     });
   },

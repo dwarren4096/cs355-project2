@@ -12,6 +12,7 @@ module.exports = {
       else {
         var q1Result = result;
         console.log(q1Result.length);
+        //filter out the games that a user already owns. if user owns no games, display them all
         var qry2 = 'SELECT GameID, GameName FROM Games';
         if (q1Result.length>=1) {
           qry2 += ' WHERE GameID != ' + q1Result[0].GameID;
