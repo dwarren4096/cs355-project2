@@ -17,7 +17,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 // NB req.query is stuff that comes in from URLs. req.body is stuff that comes from forms
 // Main page with links to view tables
 app.get('/', function(req, res) {
-  var responseHTML = cxn.HTMLHeader + '<p><a href="/games">Games</a></p>\n' +
+  var responseHTML = cxn.HTMLHeader + '<h1>Vapor Game Distribution</h1>\n'+
+    '<p><a href="/games">Games</a></p>\n' +
     '<p><a href="/users">Users</a></p>\n' +
     '<p><a href="/devs">Developers</a></p>\n';
   responseHTML += cxn.HTMLFooter;
@@ -116,10 +117,10 @@ app.post('/users/update', function(req, res) {
 
 //update status
 app.get('/users/status/edit', function(req, res) {
-  users.status-edit(req, res);
+  users.status_edit(req, res);
 });
 app.post('/users/status/update', function(req, res) {
-  users.status-update(req, res);
+  users.status_update(req, res);
 });
 
 app.get('/users/delete', function(req, res) {

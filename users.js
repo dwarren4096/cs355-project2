@@ -174,7 +174,7 @@ module.exports = {
   },
   
   //update status
-  status-edit: function(req, res) {
+  status_edit: function(req, res) {
     var UserID = parseInt(req.query.UserID);
     var responseHTML = cxn.HTMLHeader + '<h1>Updating status for UserID '+UserID+'</h1>\n\
       <form action="/users/status/update" method="post">\n\
@@ -189,7 +189,7 @@ module.exports = {
     res.send(responseHTML);
   },
   
-  status-update: function(req, res) {
+  status_update: function(req, res) {
     var rBody = req.body;
     var UserID = req.body.UserID;
     delete rBody.UserID;
