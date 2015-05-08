@@ -5,7 +5,8 @@ module.exports = {
   add: function(req, res) {
     var UserID = parseInt(req.query.UserID);
     //var GameID = parseInt(req.query.GameID);
-    var qry = 'SELECT GameID, GameName FROM Games';
+    var qry = mysql.format('SELECT GameID, GameName FROM Games WHERE GameID != (SELECT GROUP_CONCAT(GameID) FROM Game_Library WHERE UserID=?)'),
+      UserID;
     console.log(qry);
     cxn.connection.query(qry, function(err, result) {
       if (err) {cxn.handleError(res, err);}
