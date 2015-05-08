@@ -11,8 +11,9 @@ module.exports = {
       if (err) {cxn.handleError(res, err);}
       else {
         var q1Result = result;
+        console.log(q1Result.length);
         var qry2 = 'SELECT GameID, GameName FROM Games';
-        if (q1Result.length<=1) {
+        if (q1Result.length>=1) {
           qry2 += ' WHERE GameID != ' + q1Result[0].GameID;
           for (var i=1; i<q1Result.length; i++) {
             qry2 += ' AND GameID != ' + q1Result[i].GameID;
