@@ -184,7 +184,7 @@ app.get('/devs/delete', function(req, res) {
 
 app.get('/about', function(req, res) {
   res.send('about page coming soon');
-}
+});
 
 
 // Begin listening
