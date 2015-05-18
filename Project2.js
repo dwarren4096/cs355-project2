@@ -25,6 +25,9 @@ app.get('/', function(req, res) {
   responseHTML += cxn.HTMLFooter;
   res.send(responseHTML);*/
 });
+app.get('/project2.css', function (req, res) {
+  res.sendFile('project2.css');
+}
 
 /*********
  * Games *
