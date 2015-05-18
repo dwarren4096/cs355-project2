@@ -4,13 +4,22 @@ var mysql = require('mysql');
 module.exports = {
   // Lists all games in the catalog
   index: function(req, res) {
-    var qry = 'SELECT * FROM Games';
+    var qry = 'SELECT GameID, GameName, Price FROM Games';
     cxn.connection.query(qry, function(err, result) {
       if (err) {
         cxn.handleError(res, err);
       }
       else {
-        var responseHTML = cxn.HTMLHeader + '<h1>Games Catalog</h1>\n<table border=1>\n<tr>\n\
+        var responseHTML = cxn.HTMLHeader;
+        for (var i=0; i<result.length; i++) {
+          responseHTML += '<div class="game">\n\
+            <a href="/games/view?GameID='+result[i].GameID+'"><img src="/images/'+result[i].GameID+'.jpg" alt="'+result[i].GameName+'" /></a>\n\
+            <a href="/games/view?GameID='+result[i].GameID+'"><p>'+result[i].GameName+'</a><br />\n'+
+            result[i].Price;
+        }
+        responseHTML+=cxn.HTMLFooter;
+
+        /*var responseHTML = cxn.HTMLHeader + '<h1>Games Catalog</h1>\n<table border=1>\n<tr>\n\
           <th>GameID</th>\n\
           <th>GameName</th>\n\
           <th>Price</th>\n\
@@ -25,12 +34,12 @@ module.exports = {
             <td>'+result[i].Genre+'</td>\n\
             <td>'+result[i].ReleaseDate+'</td>\n\
             <td>'+result[i].Rating+'</td>\n\
-            <td><a href="/devs/view?DevID='+result[i].DevelopedBy+'">'+result[i].DevelopedBy+'</a></td>\n'+ //TODO: Join this on the Devs table
+            <td><a href="/devs/view?DevID='+result[i].DevelopedBy+'">'+result[i].DevName+'</a></td>\n'+ //TODO: Join this on the Devs table
             '</tr>\n';
         }
         responseHTML += '</table>\n\
           <p><a href="/games/add">Add a new game</a><br />\n\
-          <a href="/">Back</a></p>\n' + cxn.HTMLFooter;
+          <a href="/">Back</a></p>\n' + cxn.HTMLFooter;*/
         res.send(responseHTML);
       }
     });

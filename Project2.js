@@ -15,14 +15,15 @@ var app = express();
 app.use(bodyParser.urlencoded({extended: true}));
 
 // NB req.query is stuff that comes in from URLs. req.body is stuff that comes from forms
-// Main page with links to view tables
+// Main page is store front, same as /games
 app.get('/', function(req, res) {
-  var responseHTML = cxn.HTMLHeader + '<h1>Vapor Game Distribution</h1>\n'+
+  games.index(req, res);
+  /*var responseHTML = cxn.HTMLHeader + '<h1>Vapor Game Distribution</h1>\n'+
     '<p><a href="/games">Games</a></p>\n' +
     '<p><a href="/users">Users</a></p>\n' +
     '<p><a href="/devs">Developers</a></p>\n';
   responseHTML += cxn.HTMLFooter;
-  res.send(responseHTML);
+  res.send(responseHTML);*/
 });
 
 /*********
@@ -180,6 +181,10 @@ app.post('/devs/update', function(req, res) {
 app.get('/devs/delete', function(req, res) {
   devs.del(req, res);
 });
+
+app.get('/about', function(req, res) {
+  res.send('about page coming soon');
+}
 
 
 // Begin listening
