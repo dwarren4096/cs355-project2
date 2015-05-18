@@ -55,7 +55,7 @@ module.exports = {
             console.log(GameQryResult);
             var responseHTML = cxn.HTMLHeader + '<h2>'+DevQryResult[0].DevName+'</h2>\n\
               <p>Website: <a href="'+DevQryResult[0].DevWebsite+'">'+DevQryResult[0].DevWebsite+'</a></p>\n\
-              <h3>Games Developed ('+DevQryResult[0].GamesDeveloped(DevID)+')</h3>\n';
+              <h3>Games Developed ('+DevQryResult[0].GamesDeveloped+')</h3>\n';
             if (GameQryResult.length==0) {
               responseHTML+='<p>This developer does not have any games.<br />\n\
                 <a href="/games/add">Click here to add a new game.</a></p>\n';
