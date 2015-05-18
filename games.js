@@ -14,10 +14,11 @@ module.exports = {
         for (var i=0; i<result.length; i++) {
           responseHTML += '<div class="game">\n\
             <a href="/games/view?GameID='+result[i].GameID+'"><img class="gamecover" src="/images/'+result[i].GameID+'.jpg" alt="'+result[i].GameName+'" /></a>\n\
-            <a href="/games/view?GameID='+result[i].GameID+'"><p>'+result[i].GameName+'</a><br />\n\
+            <a href="/games/view?GameID='+result[i].GameID+'"><p class="gametext">'+result[i].GameName+'</a><br />\n\
             $'+result[i].Price+'\n</div>';
         }
-        responseHTML+=cxn.HTMLFooter;
+        responseHTML+='<div style="clear:both">\n<p><a href="/games/add">Add a new game</a></p>\n</div>\n'+
+          cxn.HTMLFooter;
 
         /*var responseHTML = cxn.HTMLHeader + '<h1>Games Catalog</h1>\n<table border=1>\n<tr>\n\
           <th>GameID</th>\n\
@@ -148,6 +149,7 @@ module.exports = {
               '<p>\n<a href="/dlc/add?GameID='+result[0].GameID+'&GameName='+result[0].GameName+'">Add DLC to this game</a><br />\n' +
               '<a href="/games">Back to Games Catalog</a></p>\n';
             responseHTML+=cxn.HTMLFooter;
+            res.send(responseHTML);
           }
         });
       }

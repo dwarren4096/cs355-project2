@@ -47,11 +47,13 @@ body {
   margin: 2px 2px 2px 2px;
   font-size: 12px;
 }
- img.gamecover {
+.gamecover {
   max-width: 100%;
   max-height: 100%;
 }
-p.game {
+.gametext {
+  max-width: 100%;
+  max-height: 100%;
   margin: 5px 5px 5px 5px;
 } 
   
