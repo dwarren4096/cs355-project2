@@ -4,8 +4,8 @@ body {
   font-family: sans-serif;
   /*the gradient in the header is supposed to span the entire width, not sure
     why it doesn't. Yeah, it bugs the hell out of me, too*/
-  /*margin: 0px, 0px, 0px, 0px;
-  padding: 0px, 0px, 0px, 0px;*/
+  /*margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;*/
 }
 
 #header {
@@ -43,8 +43,8 @@ body {
   width: 200px;
   height: 300px;
   background-color: #444444;
-  padding: 5px, 5px, 5px, 5px;
-  margin: 2px, 2px, 2px, 2px;
+  padding: 5px 5px 5px 5px;
+  margin: 2px 2px 2px 2px;
   font-size: 12px;
 }
  img.game {
@@ -52,7 +52,7 @@ body {
   max-height: 100%;
 }
 p.game {
-  margin: 5px, 5px, 5px, 5px;
+  margin: 5px 5px 5px 5px;
 } 
   
 
