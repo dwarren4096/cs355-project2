@@ -5,5 +5,12 @@ CREATE VIEW GamesIndex AS
 
 SELECT GameID, GameName, DevName FROM GamesIndex;
 
--- sick of the Call of Duty joke
-DELETE FROM Games WHERE GameID > 8 AND GameID < 16;
+DROP VIEW IF EXISTS GamesDetail;
+CREATE VIEW GamesDetail AS
+	SELECT Games.GameID, GameName, Price, Genre, ReleaseDate, Rating,
+	DLCName, DLCPrice, DLCReleaseDate, 
+	DevID, DevName FROM Games
+	JOIN Developers ON Developers.DevID = Games.DevelopedBy
+	LEFT JOIN DLC ON DLC.GameID=Games.GameID;
+
+SELECT * FROM GamesDetail WHERE GameID=7;

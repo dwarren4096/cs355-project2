@@ -19,28 +19,6 @@ module.exports = {
         }
         responseHTML+='<div style="clear:both">\n<p><a href="/games/add">Add a new game</a></p>\n</div>\n'+
           cxn.HTMLFooter;
-
-        /*var responseHTML = cxn.HTMLHeader + '<h1>Games Catalog</h1>\n<table border=1>\n<tr>\n\
-          <th>GameID</th>\n\
-          <th>GameName</th>\n\
-          <th>Price</th>\n\
-          <th>Genre</th>\n\
-          <th>ReleaseDate</th>\n\
-          <th>Rating</th>\n\
-          <th>DevelopedBy</th>\n</tr>\n';
-        for (var i=0; i < result.length; i++) {
-          responseHTML += '<tr>\n<td>'+result[i].GameID+'</td>\n\
-            <td><a href="/games/view?GameID='+result[i].GameID+'">'+result[i].GameName+'</a></td>\n\
-            <td>$'+result[i].Price+'</td>\n\
-            <td>'+result[i].Genre+'</td>\n\
-            <td>'+result[i].ReleaseDate+'</td>\n\
-            <td>'+result[i].Rating+'</td>\n\
-            <td><a href="/devs/view?DevID='+result[i].DevelopedBy+'">'+result[i].DevName+'</a></td>\n'+ //TODO: Join this on the Devs table
-            '</tr>\n';
-        }
-        responseHTML += '</table>\n\
-          <p><a href="/games/add">Add a new game</a><br />\n\
-          <a href="/">Back</a></p>\n' + cxn.HTMLFooter;*/
         res.send(responseHTML);
       }
     });
@@ -49,16 +27,44 @@ module.exports = {
   // Lists info for a specific game
   view: function(req, res) {
     var rGameID = parseInt(req.query.GameID);
-    var qry = mysql.format('SELECT Games.GameID, GameName, Price, Genre, ReleaseDate, Rating, DLCName, DLCPrice, DLCReleaseDate, DevelopedBy '+
-      'FROM Games LEFT JOIN DLC ON DLC.GameID=Games.GameID WHERE Games.GameID=?', rGameID);
+    var qry = mysql.format('SELECT * FROM GamesDetail WHERE GameID=?', rGameID);
     console.log(qry);
     cxn.connection.query(qry, function(err, result) {
       if (err) {cxn.handleError(res, err);}
       else {
         console.log(result.length);
         console.log(result);
-        var responseHTML = cxn.HTMLHeader + '<h1>Detailed information for GameID '+rGameID+'</h1>\n\
-          <table border=1>\n<tr>\n\
+        var responseHTML = cxn.HTMLHeader + '<h2>'+result[0].GameName+'</h2>\n\
+          <div class="gameviewcover">\n\
+          <img src="/images/"'+rGameID+'" alt="'+result[0].GameName+'" width=100% />\n\
+          </div>\n\
+          <div class="gametext">\n\
+          <ul>\n\
+            <li>Price: '+result[0].Price+'</li>\n\
+            <li>Rating: '+result[0].Rating+'</li>\n\
+            <li>Release Date: '+result[0].ReleaseDate+'</li>\n\
+            <li>Genre: '+result[0].ReleaseDate+'</li>\n\
+            <li>Developed by: <a href="/devs/view?DevID='+result[0].DevID+'">'+result[0].DevName+'</a></li>\n\
+          </ul>\n';
+        
+        if (result[0].DLCName != null) {
+          responseHTML+='<h3>DLC</h3>\n\
+            <table border=1>\n<tr>\n\
+              <th>DLC Name</th>\n\
+              <th>Price</th>\n\
+              <th>Release date:</th>\n</tr>\n';
+          for (var i=0; i < result.length; i++) {
+            //GameID and DLCName are combined unique key, send both to /dlc/edit
+            responseHTML+='<td><a href="/dlc/edit?GameID='+rGameID+'&DLCName='+result[i].DLCName+'">'+result[i].DLCName+'</a></td>\n\
+              <td>'+result[i].DLCPrice+'</td>\n\
+              <td>'+result[i].DLCReleaseDate+'</td>\n</tr>\n';
+          }
+          responseHTML+='</table>\n';
+        }
+        responseHTML+='</div>\n';
+              
+          
+          /*<table border=1>\n<tr>\n\
           <th>GameName</th>\n\
           <th>Price</th>\n\
           <th>Genre</th>\n\
@@ -73,7 +79,7 @@ module.exports = {
           <td>'+result[0].Genre+'</td>\n\
           <td>'+result[0].ReleaseDate+'</td>\n\
           <td>'+result[0].Rating+'</td>\n\
-          <td><a href="/devs/view?DevID='+result[0].DevelopedBy+'">'+result[0].DevelopedBy+'</a></td>\n'; //TODO: Join this on the Devs table
+          <td><a href="/devs/view?DevID='+result[0].DevelopedBy+'">'+result[0].DevName+'</a></td>\n'; //TODO: Join this on the Devs table
 
         if (result[0].DLCName == null) {
           responseHTML += '<td colspan=3>No DLC available for this game.</td>\n</tr>\n';
@@ -90,11 +96,13 @@ module.exports = {
               <td>$'+result[i].DLCPrice+'</td>\n\
               <td>'+result[i].DLCReleaseDate+'</td>\n</tr>\n';
           }
-        }
-        responseHTML += '</table>\n<p><a href="/games/edit?GameID='+rGameID+'">Edit game data</a><br />\n\
+        }*/
+        responseHTML += '<div style="clear:both">\n\
+          <p><a href="/games/edit?GameID='+rGameID+'">Edit game data</a><br />\n\
           <a href="/dlc/add?GameID='+rGameID+'">Add DLC to this game</a><br />\n\
           <a href="/games/delete?GameID='+rGameID+'">Delete this game</a><br />\n\
-          <a href="/games">Back</a></p>\n' + cxn.HTMLFooter;
+          <a href="/games">Back</a></p>\n\
+          </div>' + cxn.HTMLFooter;
         res.send(responseHTML);
       }
     });
