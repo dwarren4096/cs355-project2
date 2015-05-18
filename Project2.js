@@ -13,6 +13,8 @@ var express = require('express'),
 // Application initialization
 var app = express();
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static('images'));
+app.use(express.static('css'));
 
 // NB req.query is stuff that comes in from URLs. req.body is stuff that comes from forms
 // Main page is store front, same as /games
@@ -24,9 +26,6 @@ app.get('/', function(req, res) {
     '<p><a href="/devs">Developers</a></p>\n';
   responseHTML += cxn.HTMLFooter;
   res.send(responseHTML);*/
-});
-app.get('/project2.css', function (req, res) {
-  res.sendFile('/project2.css');
 });
 
 /*********
