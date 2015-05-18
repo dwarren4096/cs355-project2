@@ -13,7 +13,7 @@ module.exports = {
         var responseHTML = cxn.HTMLHeader;
         for (var i=0; i<result.length; i++) {
           responseHTML += '<div class="game">\n\
-            <a href="/games/view?GameID='+result[i].GameID+'"><img class="game" src="/images/'+result[i].GameID+'.jpg" alt="'+result[i].GameName+'" /></a>\n\
+            <a href="/games/view?GameID='+result[i].GameID+'"><img class="gamecover" src="/images/'+result[i].GameID+'.jpg" alt="'+result[i].GameName+'" /></a>\n\
             <a href="/games/view?GameID='+result[i].GameID+'"><p>'+result[i].GameName+'</a><br />\n\
             $'+result[i].Price+'\n</div>';
         }
