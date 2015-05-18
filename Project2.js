@@ -26,8 +26,8 @@ app.get('/', function(req, res) {
   res.send(responseHTML);*/
 });
 app.get('/project2.css', function (req, res) {
-  res.sendFile('project2.css');
-}
+  res.sendFile('/project2.css');
+});
 
 /*********
  * Games *
