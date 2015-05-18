@@ -13,8 +13,9 @@ var express = require('express'),
 // Application initialization
 var app = express();
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static('css'));
-app.use(express.static('images'));
+app.use(express.static('assets'));
+//app.use(express.static('css'));
+//app.use(express.static('images'));
 
 // NB req.query is stuff that comes in from URLs. req.body is stuff that comes from forms
 // Main page is store front, same as /games

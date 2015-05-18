@@ -15,7 +15,7 @@ module.exports = {
           responseHTML += '<div class="game">\n\
             <a href="/games/view?GameID='+result[i].GameID+'"><img src="/images/'+result[i].GameID+'.jpg" alt="'+result[i].GameName+'" /></a>\n\
             <a href="/games/view?GameID='+result[i].GameID+'"><p>'+result[i].GameName+'</a><br />\n\
-            $'+result[i].Price;
+            $'+result[i].Price+'\n</div>';
         }
         responseHTML+=cxn.HTMLFooter;
 
