@@ -49,7 +49,7 @@ body {
 }
  img.gamecover {
   max-width: 100%;
-  height: auto;
+  max-height: 100%;
 }
 p.game {
   margin: 5px 5px 5px 5px;
