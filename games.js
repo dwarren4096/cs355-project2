@@ -36,14 +36,14 @@ module.exports = {
         console.log(result);
         var responseHTML = cxn.HTMLHeader + '<h2>'+result[0].GameName+'</h2>\n\
           <div class="gameviewcover">\n\
-          <img src="/images/"'+rGameID+'" alt="'+result[0].GameName+'" width=100% />\n\
+          <img src="/images/'+rGameID+'.jpg" alt="'+result[0].GameName+'" width=100% />\n\
           </div>\n\
-          <div class="gametext">\n\
+          <div class="gameviewtext">\n\
           <ul>\n\
-            <li>Price: '+result[0].Price+'</li>\n\
+            <li>Price: $'+result[0].Price+'</li>\n\
             <li>Rating: '+result[0].Rating+'</li>\n\
             <li>Release Date: '+result[0].ReleaseDate+'</li>\n\
-            <li>Genre: '+result[0].ReleaseDate+'</li>\n\
+            <li>Genre: '+result[0].Genre+'</li>\n\
             <li>Developed by: <a href="/devs/view?DevID='+result[0].DevID+'">'+result[0].DevName+'</a></li>\n\
           </ul>\n';
         
@@ -102,7 +102,7 @@ module.exports = {
           <a href="/dlc/add?GameID='+rGameID+'">Add DLC to this game</a><br />\n\
           <a href="/games/delete?GameID='+rGameID+'">Delete this game</a><br />\n\
           <a href="/games">Back</a></p>\n\
-          </div>' + cxn.HTMLFooter;
+          </div>\n' + cxn.HTMLFooter;
         res.send(responseHTML);
       }
     });
