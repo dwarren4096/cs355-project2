@@ -14,3 +14,13 @@ CREATE VIEW GamesDetail AS
 	LEFT JOIN DLC ON DLC.GameID=Games.GameID;
 
 SELECT * FROM GamesDetail WHERE GameID=7;
+
+DELIMITER |$
+CREATE FUNCTION GamesDeveloped(DevID INT) RETURNS INT deterministic
+begin
+	DECLARE numGames INT;
+	SET numGames = (SELECT COUNT(*) FROM Games WHERE DevelopedBy=DevID);
+	RETURN (numGames);
+END
+
+SELECT GameID, GameName, GamesDeveloped(1) FROM Games WHERE DevelopedBy=1;

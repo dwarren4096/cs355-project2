@@ -8,10 +8,11 @@ module.exports = {
     cxn.connection.query(qry, function(err, result) {
       if (err) {cxn.handleError(res, err);}
       else {
-        var responseHTML = cxn.HTMLHeader + '<h1>Developers</h1>\n<table border=1>\n<tr>\n\
-          <th>DevID</th>\n\
-          <th>DevName</th>\n\
-          <th>DevWebsite</th>\n</tr>\n';
+        var responseHTML = cxn.HTMLHeader + '<h2>Developers</h2>\n\
+          <table border=1>\n<tr>\n\
+            <th>DevID</th>\n\
+            <th>DevName</th>\n\
+            <th>DevWebsite</th>\n</tr>\n';
 
         for (var i=0; i < result.length; i++) {
           //add http:// to DevWebsite if it's not there
@@ -45,15 +46,16 @@ module.exports = {
           DevQryResult[0].DevWebsite = 'http://' + DevQryResult[0].DevWebsite; 
         }
 
-        var qry2 = mysql.format('SELECT GameID,GameName FROM Games WHERE DevelopedBy=?', DevID);
+        var qry2 = mysql.format('SELECT GameID,GameName, GamesDeveloped(?) FROM Games WHERE DevelopedBy=?', [DevID, DevID]);
         console.log(qry2);
         cxn.connection.query(qry2, function(err, result) {
           if (err) {cxn.handleError(res, err);}
           else {
             var GameQryResult = result;
-            var responseHTML = cxn.HTMLHeader + '<h1>'+DevQryResult[0].DevName+'</h1>\n\
+            console.log(GameQryResult);
+            var responseHTML = cxn.HTMLHeader + '<h2>'+DevQryResult[0].DevName+'</h2>\n\
               <p>Website: <a href="'+DevQryResult[0].DevWebsite+'">'+DevQryResult[0].DevWebsite+'</a></p>\n\
-              <h2>Games Developed</h2>\n';
+              <h3>Games Developed ('+DevQryResult[0].GamesDeveloped(DevID)+')</h3>\n';
             if (GameQryResult.length==0) {
               responseHTML+='<p>This developer does not have any games.<br />\n\
                 <a href="/games/add">Click here to add a new game.</a></p>\n';
