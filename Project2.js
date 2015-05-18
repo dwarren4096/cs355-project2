@@ -184,7 +184,9 @@ app.get('/devs/delete', function(req, res) {
 });
 
 app.get('/about', function(req, res) {
-  res.sendFile('/about.html');
+  var responseHTML = cxn.HTMLHeader + '<p>The Gauge Corporation, headed up by Nebe Gawell, has devised a plan to introduce a new digital distribution platform for video games. Dubbed "Vapor", this new system is expected to revolutionize the marketplace by allowing gamers to easily purchase games at heavily discounted prices (and is not to be confused with the third installment of a certain video game series that takes its title from a property of radioactivity).</p>\n\
+      <p>All cover art is sourced from Wikipedia and is used here under fair use.</p>' + cxn.HTMLFooter;
+  res.send(responseHTML);
 });
 
 
