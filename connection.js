@@ -1,4 +1,5 @@
 var mysql = require('mysql');
+var fs = require('fs');
 
 //Provides the connection object and a few other global things
 exports.connection = mysql.createConnection({
@@ -13,5 +14,5 @@ exports.handleError = function (res, error){
     res.send(error.toString());
 }
 
-exports.HTMLHeader = '<html>\n<head><title>Vapor Game Distribution</title></head>\n<body>\n';
-exports.HTMLFooter = '</body>\n</html>';
+exports.HTMLHeader = fs.ReadFileSync('header.html');
+exports.HTMLFooter = fs.ReadFileSync('footer.html');
