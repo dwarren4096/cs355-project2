@@ -13,12 +13,9 @@ module.exports = {
         var responseHTML = cxn.HTMLHeader;
         for (var i=0; i<result.length; i++) {
           responseHTML += '<div class="game">\n\
-            <div class="gametext">\n\
-            <a href="/games/view?GameID='+result[i].GameID+'"><p>'+result[i].GameName+'</a><br />\n\
-            $'+result[i].Price+'\n\
-            </div>\
             <a href="/games/view?GameID='+result[i].GameID+'"><img class="gamecover" src="/images/'+result[i].GameID+'.jpg" alt="'+result[i].GameName+'" /></a>\n\
-            </div>';
+            <a href="/games/view?GameID='+result[i].GameID+'"><p class="gametext">'+result[i].GameName+'</a><br />\n\
+            $'+result[i].Price+'\n</div>';
         }
         responseHTML+='<div style="clear:both">\n<p><a href="/games/add">Add a new game</a></p>\n</div>\n'+
           cxn.HTMLFooter;
